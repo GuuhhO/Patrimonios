@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Patrimonios.Data
+
+@model PatrimoniosUser
+
+@{
+    ViewData["Title"] = "Excluir Usuário";
+}
+
+<div class="container">
+    <div class="row text-center mt-2 mb-2">
+        <h1>Deletar Usuário</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Tem certeza que deseja excluir este usuário?</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Nome
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Name
+                </dd>
+                <dt class="col-sm-2">
+                    Usuário
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.UserName
+                </dd>
+                <dt class="col-sm-2">
+                    Grupo
+                </dt>
+                <dd class="col-sm-10">
+                    @(Model.Grupo == 1 ? "Admin" : Model.Grupo == 2 ? "Comum" : "Outro")
+                </dd>
+            </dl>
+            <form asp-action="ExcluirConfirmado" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Excluir</button>
+                <a asp-action="Configuracoes" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>

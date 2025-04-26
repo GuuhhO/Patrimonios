@@ -1,0 +1,92 @@
+﻿body .cores-invertidas {
+}
+
+.cores-invertidas .navbar {
+    background-color: #000 !important;
+}
+
+.cores-invertidas .main {
+    background-color: #1c1c1c !important;
+}
+
+.cores-invertidas #sidebar {
+    background-color: #000 !important;
+}
+
+.cores-invertidas #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+    background-color: #000 !important;
+}
+
+.cores-invertidas .dropdown-menu.show {
+    background-color: #000 !important;
+}
+
+.floating-btn .cores-invertidas-btn .cores-invertidas {
+    background-color: #464646 !important;
+}
+
+.cores-invertidas h1.display-4 {
+    color: white;
+}
+
+.cores-invertidas #gridRelatorio .col-md-3 {
+    box-shadow: 0px 0 20px 0px #0000006b;
+}
+
+.cores-invertidas h1, .cores-invertidas h2, .cores-invertidas h3, .cores-invertidas h4, .cores-invertidas h5, .cores-invertidas h6 {
+    color: white;
+}
+
+.cores-invertidas #profile:hover, .cores-invertidas #email:hover, .cores-invertidas #change-password:hover, .cores-invertidas #two-factor:hover, .cores-invertidas #personal-data:hover {
+    color: white;
+}
+
+.cores-invertidas hr {
+    color: white;
+}
+
+.cores-invertidas p {
+    color: white;
+}
+
+.cores-invertidas label.form-label {
+    color: #cccccc !important;
+}
+
+.form-floating > .form-control:disabled ~ label, .form-floating > :disabled ~ label {
+    color: #7f7f7f !important;
+}
+
+.cores-invertidas .form-control,
+.cores-invertidas .form-select {
+    background-color: #131313;
+    border: 2px solid #383838;
+    color: white;
+}
+
+.cores-invertidas .form-control::placeholder {
+    color: #a4a4a4;
+}
+
+.cores-invertidas .form-control::after {
+    color: white;
+    background: white;
+}
+
+.cores-invertidas .form-label::after {
+    background-color: #ffffff00 !important;
+}
+
+.cores-invertidas .form-control:disabled {
+    background-color: #383838;
+    color: #7f7f7f;
+}
+
+.cores-invertidas .h-100.input-group-text.text-success.font-weight-bold {
+    background-color: #171717;
+    border: 2px solid #383838;
+}
+
+.cores-invertidas .alert.alert-warning p {
+    color: black;
+}

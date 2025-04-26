@@ -1,0 +1,89 @@
+﻿@model Patrimonios.Models.AdicionarUsuarioViewModel
+
+@{
+    ViewData["Title"] = "Adicionar Usuário";
+}
+
+<head>
+    <style>
+        .form-label {
+            color: #939393 !important;
+            transition: 0.2s ease-in-out;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="row text-center mt-2 mb-2">
+        <h1>Adicionar Usuário</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <section>
+                <form asp-action="AdicionarUsuario" method="post">
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Name" class="form-label">Usuário</label>
+                        <input asp-for="Name" class="form-control mb-2" id="usernameInput" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="UserName" class="form-label" id="formLabelName">E-mail</label>
+                        <input asp-for="UserName" class="form-control mb-2" id="emailInput" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Email" class="form-label" id="formLabelName">Confirme o e-mail</label>
+                        <input asp-for="Email" class="form-control mb-2" id="emailInput" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="PhoneNumber" class="form-label">Telefone</label>
+                        <input asp-for="PhoneNumber" class="form-control mb-2" id="phoneNumberInput" value="0" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Password" class="form-label">Senha</label>
+                        <input asp-for="Password" type="text" class="form-control mb-2" id="PasswordInput" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="ConfirmPassword" class="form-label">Confirme a senha</label>
+                        <input asp-for="ConfirmPassword" type="text" class="form-control mb-2" id="PasswordInput" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label asp-for="Grupo" class="form-label" id="formLabelName">Grupo</label>
+                        <select asp-for="Grupo" class="form-select" aria-label="Default select example" id="inputLabel">
+                            <option value="1">Admin</option>
+                            <option value="2" selected>Comum</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a asp-action="Configuracoes" class="btn btn-secondary ms-2">Cancelar</a>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-4 col-md-12">
+                <dt class="col-sm-6">A senha deve conter:</dt>
+                <dd class="col-12 text-danger">
+                    <p>- Pelo menos uma letra minúscula (a-z)</p>
+                    <p>- Pelo menos uma letra maiúscula (A-Z)</p>
+                    <p>- Pelo menos um número (0-9)</p>
+                    <p>- No mínimo 6 caracteres</p>
+                    <p>- Pode conter os seguintes caracteres especiais: $ # % &</p>
+                </dd>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script src="~/js/mask.js"></script>

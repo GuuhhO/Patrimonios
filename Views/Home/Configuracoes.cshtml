@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Patrimonios.Data
+
+@model IEnumerable<PatrimoniosUser>
+
+@{
+    ViewData["Title"] = "Usuários";
+}
+
+<div class="row mb-3">
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" style="color: #00908f;"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item active" id="breadcrumbitemPatrimonios" aria-current="page">Configurações</li>
+        </ol>
+    </nav>
+</div>
+
+<section>
+    <h1>Usuários</h1>
+    <a class="btn btn-primary mb-4" asp-action="AdicionarUsuario">Adicionar</a>
+    @if (TempData["SuccessMessageAddUser"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @Html.Raw(TempData["SuccessMessageAddUser"])
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    <table class="table table-bordered" id="table">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center align-middle">Nome</th>
+                <th scope="col" class="text-center align-middle">E-mail</th>
+                <th scope="col" class="text-center align-middle">Telefone</th>
+                <th scope="col" class="text-center align-middle">Grupo</th>
+                <th scope="col" class="text-center align-middle">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuarios in Model)
+            {
+                <tr>
+                    <td class="text-center align-middle">@usuarios.Name</td>
+                    <td class="text-center align-middle">@usuarios.Email</td>
+                    <td class="text-center align-middle">@usuarios.PhoneNumber</td>
+                    <td class="text-center align-middle">
+                        @(usuarios.Grupo == 1 ? "Admin" : usuarios.Grupo == 2 ? "Comum" : "Outro")
+                    </td>
+                    <td class="text-center align-middle" style="width: 200px;">
+                        <a asp-action="EditarUsuario" asp-route-id="@usuarios.Id" class="btn btn-secondary btn-sm me-2">Editar</a>
+                        <a asp-action="ExcluirUsuario" asp-route-id="@usuarios.Id" class="btn btn-danger btn-sm">Excluir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

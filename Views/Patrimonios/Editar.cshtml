@@ -1,0 +1,148 @@
+﻿@model Patrimonios.Models.PatrimoniosModel
+
+@{
+    ViewData["Title"] = "Editar";
+}
+
+<head>
+    <style>
+        .form-label {
+            color: #939393 !important;
+            transition: 0.2s ease-in-out;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="row text-center mt-2 mb-2">
+        <h1>Editar Patrimônio</h1>
+    </div>
+    <div class="row">
+        <form asp-action="Editar" method="post">
+            <div class="col-4 mb-3">
+                <label asp-for="NumeroPatrimonio" class="form-label">Nº Patrimônio</label>
+                <input asp-for="NumeroPatrimonio" class="form-control" id="numeroPatrimonioInput" />
+                <span asp-validation-for="NumeroPatrimonio" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Categoria" class="form-label" id="formLabelName">Categoria</label>
+                <input asp-for="Categoria" class="form-control" id="numeroPatrimonioInput" />
+                <span asp-validation-for="Categoria" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Equipamento" class="form-label" id="formLabelName">Equipamento</label>
+                <input asp-for="Equipamento" class="form-control" id="numeroPatrimonioInput" />
+                <span asp-validation-for="Equipamento" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Marca" class="form-label" id="formLabelName">Marca</label>
+                <input asp-for="Marca" class="form-control" id="inputLabel" />
+                <span asp-validation-for="Marca" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Modelo" class="form-label" id="formLabelName">Modelo</label>
+                <input asp-for="Modelo" class="form-control" id="inputLabel" />
+                <span asp-validation-for="Modelo" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Descricao" class="form-label" id="formLabelName">Descrição</label>
+                <input asp-for="Descricao" class="form-control" id="inputLabel" />
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Status" class="form-label">Status</label>
+                <select id="status" asp-for="Status" class="form-select" aria-label="Default select example">
+                    <option selected>Selecione uma opção...</option>
+                    <option value="Em uso">Em uso</option>
+                    <option value="Armazenado">Armazenado</option>
+                    <option value="Avariado">Avariado - com defeito</option>
+                    <option value="Manutenção">Manutenção</option>
+                    <option value="Alugado">Alugado</option>
+                    <option value="Obsoleto">Obsoleto</option>
+                    <option value="Decartado">Descartado</option>
+                </select>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Localidade" class="form-label">Localidade</label>
+                <select id="localidade" asp-for="Localidade" class="form-select" aria-label="Default select example" data-selecionado="@Model.Localidade">
+                    <option selected>Selecione uma opção...</option>
+                    <option value="Itabira/MG">Itabira/MG</option>
+                    <option value="Ribeirão das Neves/MG">Ribeirão das Neves/MG</option>
+                    <option value="Alfenas/MG">Alfenas/MG</option>
+                    <option value="Manutenção">Manutenção</option>
+                </select>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Unidade" class="form-label">Unidade</label>
+                <select id="unidade" asp-for="Unidade" class="form-select" aria-label="Default select example" data-selecionado="@Model.Unidade">
+                    <option selected>Selecione uma opção...</option>
+                    <option value="01 - Galpão Matriz Itabira">01 - Galpão Matriz Itabira</option>
+                    <option value="02 - Câmara Municipal de Itabira">02 - Câmara Municipal de Itabira</option>
+                    <option value="03 - Prefeitura Municipal de Itabira">03 - Prefeitura Municipal de Itabira</option>
+                    <option value="04 - HNSD">04 - HNSD</option>
+                    <option value="05 - Galpão  Ribeirão das Neves">05 - Galpão  Ribeirão das Neves</option>
+                    <option value="06 - Prefeitura Municipal de Ribeirão das Neves">06 - Prefeitura Municipal de Ribeirão das Neves</option>
+                    <option value="07 - Unifenas">07 - Unifenas</option>
+                    <option value="08 - Galpão HUAV">08 - Galpão HUAV</option>
+                </select>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Setor" class="form-label" id="formLabelName">Setor</label>
+                <input asp-for="Setor" class="form-control" id="inputLabel" />
+                <span asp-validation-for="Setor" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="EstadoConservacao" class="form-label" id="formLabelName">Estado de Conservação</label>
+                <input asp-for="EstadoConservacao" class="form-control" id="inputLabel" />
+                <span asp-validation-for="EstadoConservacao" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="NotaFiscal" class="form-label" id="formLabelName">Nota Fiscal</label>
+                <input asp-for="NotaFiscal" class="form-control" id="inputLabel" />
+                <span asp-validation-for="NotaFiscal" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="NumeroSerie" class="form-label" id="formLabelName">Nº Série</label>
+                <input asp-for="NumeroSerie" class="form-control" id="inputLabel" />
+                <span asp-validation-for="NumeroSerie" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="DataAquisicao" class="form-label" id="formLabelName">Data Aquisição</label>
+                <input asp-for="DataAquisicao" type="text" class="form-control" id="inputLabel" />
+                <span asp-validation-for="DataAquisicao" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Valor" class="form-label" id="formLabelName">Valor</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input asp-for="Valor" class="form-control" id="inputLabel" />
+                </div>
+                
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    document.getElementById("numeroPatrimonioInput").addEventListener("click", function () {
+        var paragrafo = document.getElementById("formLabelName");
+        var inputi = document.getElementById("numeroPatrimonioInput");
+
+        if (document.activeElement == inputi) {
+            paragrafo.classList.add("inputSelecionada");
+        } else (document.activeElement != inputi){
+            paragrafo.classList.remove("inputSelecionada");
+        }
+    });
+</script>
+
+<script src="~/js/localidadesUnidades.js"></script>

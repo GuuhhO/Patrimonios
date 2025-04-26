@@ -1,0 +1,78 @@
+﻿@using Patrimonios.Data
+
+@model EditarUsuarioViewModel
+
+@{
+    ViewData["Title"] = "Editar Usuário";
+}
+
+<head>
+    <style>
+        .form-label {
+            color: #939393 !important;
+            transition: 0.2s ease-in-out;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="row text-center mt-2 mb-2">
+        <h1>Editar Usuário</h1>
+    </div>
+    <div class="row">
+        <form asp-action="EditarUsuario" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <div class="col-4 mb-3">
+                <label asp-for="Name" class="form-label">Usuário</label>
+                <input asp-for="Name" class="form-control" id="nameInput" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="UserName" class="form-label" id="formLabelName">E-mail</label>
+                <input asp-for="UserName" class="form-control" id="emailInput" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="PhoneNumber" class="form-label">Telefone</label>
+                <input asp-for="PhoneNumber" class="form-control" id="phoneNumberInput" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="col-4 mb-3">
+                <label asp-for="Grupo" class="form-label" id="formLabelName">Grupo</label>
+                <select asp-for="Grupo" class="form-select" id="inputLabel">
+                    <option value="1">Admin</option>
+                    <option value="2">Comum</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a asp-action="Configuracoes" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+    </div>
+
+    <div class="row col-6 mt-5">
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                <strong>Erros de validação:</strong>
+                <ul>
+                    @foreach (var modelState in ViewData.ModelState)
+                    {
+                        foreach (var error in modelState.Value.Errors)
+                        {
+                            <li>@modelState.Key: @error.ErrorMessage</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
