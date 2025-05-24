@@ -1,0 +1,104 @@
+﻿@page
+@model Patrimonios.Areas.Identity.Pages.LogModel
+@{
+    ViewData["Title"] = "Log";
+}
+
+<head>
+    <style>
+        input[type="search"]::-webkit-search-cancel-button {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<div class="row mb-3">
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" style="color: #00908f;"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item active" id="breadcrumbitemPatrimonios" aria-current="page">Log</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row col-4 mb-3">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Filtrar..." aria-label="Search" id="inputFiltro" />
+    </form>
+</div>
+
+<table class="table table-bordered" id="table">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(1)" style="cursor: pointer;" title="Clique parar filtrar">Usuário</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(2)" style="cursor: pointer;" title="Clique parar filtrar">Ação</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(3)" style="cursor: pointer;" title="Clique parar filtrar">Data</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(4)" style="cursor: pointer;" title="Clique parar filtrar">Descrição</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model.Logs)
+        {
+            <tr>
+                <td class="text-center align-middle">@log.Usuario</td>
+                <td class="text-center align-middle">@log.Acao</td>
+                <td class="text-center align-middle">@log.Timestamp</td>
+                <td class="text-center align-middle">@log.Descricao</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    document.getElementById('inputFiltro').addEventListener('keyup', function () {
+        let input = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#table tbody tr');
+
+        rows.forEach(row => {
+            if (input === "") {
+                row.style.display = '';
+            } else {
+                let text = row.innerText.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            }
+        })
+    });
+</script>
+
+<script>
+    function sortTable(columnIndex) {
+        const table = document.getElementById('table');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.rows); // Converte NodeList em Array
+        let isAscending = table.getAttribute('data-sort-order') === 'asc'; // Verifica a ordem atual
+
+        // Alterna entre ascendente e descendente
+        table.setAttribute('data-sort-order', isAscending ? 'desc' : 'asc');
+
+        rows.sort((a, b) => {
+            const cellA = a.cells[columnIndex].innerText.toLowerCase();
+            const cellB = b.cells[columnIndex].innerText.toLowerCase();
+
+            if (!isNaN(Date.parse(cellA)) && !isNaN(Date.parse(cellB))) {
+                // Ordenação de datas
+                return isAscending
+                    ? new Date(cellA) - new Date(cellB)
+                    : new Date(cellB) - new Date(cellA);
+            } else if (!isNaN(cellA) && !isNaN(cellB)) {
+                // Ordenação de números
+                return isAscending
+                    ? cellA - cellB
+                    : cellB - cellA;
+            } else {
+                // Ordenação de strings
+                return isAscending
+                    ? cellA.localeCompare(cellB)
+                    : cellB.localeCompare(cellA);
+            }
+        });
+
+        // Adiciona as linhas ordenadas de volta ao tbody
+        tbody.innerHTML = '';
+        rows.forEach(row => tbody.appendChild(row));
+    }
+</script>

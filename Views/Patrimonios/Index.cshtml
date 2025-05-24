@@ -1,0 +1,122 @@
+﻿@model IEnumerable<Patrimonios.Models.PatrimoniosModel>
+
+@{
+    ViewData["Title"] = "Patrimônios";
+}
+
+<head>
+    <style>
+        input[type="search"]::-webkit-search-cancel-button {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<div class="row mb-3">
+    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" style="color: #00908f;"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item active" id="breadcrumbitemPatrimonios" aria-current="page">Patrimônios</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row col-4 mb-3">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Filtrar..." aria-label="Search" id="inputFiltro" />
+    </form>
+</div>
+
+<a class="btn btn-primary mb-4" asp-action="Adicionar">Adicionar</a>
+
+<table class="table table-bordered" id="table">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(0)" style="cursor: pointer;" title="Clique parar filtrar" data-bs-title="This top tooltip is themed via CSS variables.">Patrimônio</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(1)" style="cursor: pointer;" title="Clique parar filtrar">Equipamento</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(2)" style="cursor: pointer;" title="Clique parar filtrar">Marca</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(3)" style="cursor: pointer;" title="Clique parar filtrar">Modelo</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(4)" style="cursor: pointer;" title="Clique parar filtrar">Localidade</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(5)" style="cursor: pointer;" title="Clique parar filtrar">Valor Aproximado</th>
+            <th scope="col" class="text-center align-middle" onclick="sortTable(6)" style="cursor: pointer;" title="Clique parar filtrar">Data Aquisição</th>
+            <th scope="col" class="text-center align-middle" title="Escolha uma ação...">Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row" class="text-center align-middle">@item.NumeroPatrimonio</th>
+                <td class="text-center align-middle">@item.Descricao</td>
+                <td class="text-center align-middle">@item.Marca</td>
+                <td class="text-center align-middle">@item.Modelo</td>
+                <td class="text-center align-middle">@item.Localidade</td>
+                <td class="text-center align-middle">@item.Valor</td>
+                <td class="text-center align-middle">
+                    @{
+                        var data = item.DataAquisicao == null
+                        ? new DateTime(1901, 1, 1)
+                        : DateTime.Parse(item.DataAquisicao);
+                    }
+                    @data.ToString("dd/MM/yyyy")
+                </td>
+                <td class="text-center align-middle" style="width: 200px;">
+                    <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-secondary btn-sm me-2">Editar</a>
+                    <a asp-action="Excluir" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    document.getElementById('inputFiltro').addEventListener('keyup', function () {
+        let input = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#table tbody tr');
+
+        rows.forEach(row => {
+            if (input === "") {
+                row.style.display = '';
+            } else {
+                let text = row.innerText.toLowerCase();
+                row.style.display = text.includes(input) ? '' : 'none';
+            }
+        })
+    });
+</script>
+
+<script>
+    function sortTable(columnIndex) {
+        const table = document.getElementById('table');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.rows); // Converte NodeList em Array
+        let isAscending = table.getAttribute('data-sort-order') === 'asc'; // Verifica a ordem atual
+
+        // Alterna entre ascendente e descendente
+        table.setAttribute('data-sort-order', isAscending ? 'desc' : 'asc');
+
+        rows.sort((a, b) => {
+            const cellA = a.cells[columnIndex].innerText.trim();
+            const cellB = b.cells[columnIndex].innerText.trim();
+
+            const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+            if(dateRegex.test(cellA) && dateRegex.test(cellB)) {
+                const parseDate = (dateStr) => {
+                    const [day, month, year] = dateStr.split('/').map(Number);
+                    return new Date(year, month - 1, day);
+                };
+                return isAscending ? parseDate(cellA) - parseDate(cellB) : parseDate(cellB) - parseDate(cellA);
+            }
+
+            if (!isNaN(cellA) && !isNaN(cellB)) {
+                return isAscending ? parseFloat(cellA) - parseFloat(cellB) : parseFloat(cellB) - parseFloat(cellA);
+            }
+
+            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+        });
+
+        tbody.innerHTML = '';
+        rows.forEach(row => tbody.appendChild(row));
+    }
+</script>

@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<head>
+    <style>
+        #gridRelatorio .col-md-3 {
+            border-radius: 20px;
+            background-color: #353a40;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0 20px 0px #00908f6b;
+        }
+
+        #gridRelatorio .col-md-3:nth-child(1),
+        #gridRelatorio .col-md-3:nth-child(2){
+            margin-right: 20px;
+        }
+
+        #gridRelatorio > a {
+            transition: 0.2s ease-in-out;
+            color: #0b0b0b;
+        }
+
+        #gridRelatorio > a:hover {
+            transform: scale(1.02);
+        }
+
+    </style>
+</head>
+<div class="text-center mt-5">
+    <h1 class="display-4">Patrimônios</h1>
+        <div class="row justify-content-center mt-5" id="gridRelatorio">
+            <a asp-controller="Patrimonios" asp-action="Index" class="col-md-3 text-center" title="Clique para ver todos os patrimônios">
+                <h2><i class="bi bi-list-ol"></i></h2>
+                <h2>Patrimônios</h2>
+                <p>Clique para ver todos</p>
+            </a>
+            <a class="col-md-3 text-center">
+                <h2><i class="bi bi-card-checklist"></i></h2>
+                <h2>@ViewBag.TotalCount</h2>
+                <p>Patrimônios Cadastrados</p>
+            </a>
+            <a class="col-md-3 text-center">
+                <h2><i class="bi bi-currency-dollar"></i></h2>
+                <h2>R$ @ViewBag.TotalValor</h2>
+                <p>Valor em Patrimônios</p>
+            </a>
+        </div>
+</div>
